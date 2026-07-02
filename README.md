@@ -1,5 +1,5 @@
 # Về dự án
-Đây là bản demo code để pin vào profile nên sẽ không commit toàn bộ code và những phần quan trọng sẽ bị ẩn đi. Do đó pipeline sẽ chỉ có 1 commit toàn bộ dự án.
+Đây là phiên bản demo được đơn giản hóa nhằm phục vụ mục đích giới thiệu. Do dự án gốc chứa các thành phần thuộc phạm vi bảo mật, một số mã nguồn và logic nghiệp vụ quan trọng không được công khai. Do đó pipeline sẽ chỉ có 1 commit toàn bộ dự án.
 
 # Horoscope Nuxt 3
 
