@@ -1,0 +1,13 @@
+/node_modules
+.nuxt
+.nitro
+.cache
+coverage
+.output
+.codex
+.demo
+.env
+.DS_Store
+.env*
+/app/generated/prisma
+/logs

@@ -1,0 +1,48 @@
+name: Deploy to VPS on Tag
+
+on:
+  push:
+    tags:
+      - "v*"  # Khi tạo tag như v1.0.0 thì chạy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.head_commit.message, 'build')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Prepare Nuxt
+        run: npx nuxi prepare
+        
+      - name: Run unit tests with coverage
+        run: npm run test:coverage
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Deploy via SSH (password)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            set -e
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            cd /home/lamtt/Horoscope-Nuxt3
+            git pull https://x-access-token:${{ secrets.TOKEN }}@github.com/lamtrant61/Horoscope-Nuxt3.git main
+            pm2 restart all
